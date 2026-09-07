@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asia English Tao Seminar</title>
+<meta name="description" content="A global online Tao seminar in English — the health of body, mind & soul. Everyone is welcome." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#fbf5ee; --panel:#ffffff; --ink:#3a2216; --ink-soft:#6b4a34;
+    --muted:#9a8271; --accent:#c4201c; --accent-deep:#9c1613;
+    --cream:#f6ece0; --line:rgba(58,34,22,.12);
+    --radius:18px; --shadow:0 10px 30px rgba(58,34,22,.10);
+    --maxw:1080px;
+    --cond:'Roboto Condensed',system-ui,sans-serif;
+    --sans:'Roboto',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.05;margin:0}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .flag{width:1.1em;height:auto;display:inline-block;vertical-align:-.16em;margin-left:.18em}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .kicker{font-family:var(--cond);text-transform:uppercase;letter-spacing:.32em;font-size:.78rem;color:var(--accent);font-weight:700}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,245,238,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:1rem}
+  .brand b{color:var(--accent)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{font-family:var(--cond);text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;text-decoration:none;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-links .btn{padding:9px 16px;font-size:.8rem}
+  @media(max-width:720px){.nav-links a:not(.btn){display:none}}
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+    text-decoration:none;padding:15px 26px;border-radius:999px;border:none;cursor:pointer;
+    box-shadow:0 6px 0 var(--accent-deep),0 12px 24px rgba(196,32,28,.35);transition:transform .08s ease,box-shadow .08s ease;font-size:.95rem}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--accent-deep),0 16px 30px rgba(196,32,28,.4)}
+  .btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--accent-deep),0 6px 14px rgba(196,32,28,.35)}
+  .btn.ghost{background:rgba(255,255,255,.14);color:#fff;box-shadow:none;border:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(4px)}
+  .btn.ghost:hover{background:rgba(255,255,255,.24);transform:translateY(-2px)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('assets/hero.jpg') center/cover no-repeat;transform:scale(1.02)}
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(50,18,12,.10) 0%,rgba(50,18,12,0) 30%,rgba(40,12,10,.35) 70%,rgba(30,8,8,.78) 100%)}
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px 54px}
+  .hero .kicker{color:#ffd9c2;text-shadow:0 1px 10px rgba(0,0,0,.3)}
+  .hero h1{font-size:clamp(2.6rem,9vw,5.6rem);text-transform:uppercase;letter-spacing:-.01em;margin:.15em 0 .1em;text-shadow:0 2px 24px rgba(30,8,8,.4)}
+  .badge{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;padding:7px 14px;border-radius:8px;margin-bottom:14px}
+  .tagline{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(1.1rem,3.4vw,1.7rem);color:#fff;margin:.2em 0 .7em;text-shadow:0 2px 16px rgba(30,8,8,.45)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--cond);letter-spacing:.04em;font-size:1.02rem;margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+  .hero-meta .flag{width:1.15em;height:1.15em;vertical-align:-.18em;margin-left:.15em}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center}
+  .zoom-inline{font-family:var(--cond);letter-spacing:.05em;font-size:.92rem;color:#ffe9dc;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .zoom-inline b{color:#fff}
+
+  /* ---------- sections ---------- */
+  section{padding:78px 0}
+  .sec-head{max-width:680px;margin-bottom:40px}
+  .sec-head h2{font-size:clamp(2rem,6vw,3rem);text-transform:uppercase;margin:.15em 0}
+  .sec-head p{color:var(--ink-soft);font-size:1.06rem;margin:.4em 0 0}
+
+  .about{background:linear-gradient(180deg,#fff 0%,var(--bg) 100%)}
+  .about p{font-size:1.12rem;max-width:760px;color:var(--ink)}
+  .about .lead{font-size:1.28rem;font-weight:500}
+
+  /* highlights */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .card{background:var(--panel);border-radius:var(--radius);padding:28px 26px;box-shadow:var(--shadow);border:1px solid var(--line);position:relative;overflow:hidden}
+  .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--accent),#e87a53)}
+  .card .num{font-family:var(--cond);font-weight:700;font-size:2.4rem;color:#f0c8b6;line-height:1;margin-bottom:8px}
+  .card h3{font-size:1.5rem;text-transform:none;margin-bottom:10px;letter-spacing:0}
+  .card p{margin:0;color:var(--ink-soft);font-size:1rem}
+
+  /* schedule */
+  .schedule{background:linear-gradient(180deg,var(--bg),#fff)}
+  .timeline{border-left:3px solid var(--line);margin-left:6px}
+  .row{position:relative;padding:0 0 4px 26px;margin-bottom:26px}
+  .row::before{content:'';position:absolute;left:-9px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--bg)}
+  .row.break::before{background:var(--muted)}
+  .row .time{font-family:var(--cond);font-weight:700;color:var(--accent);letter-spacing:.04em;font-size:1.05rem}
+  .row.break .time{color:var(--muted)}
+  .row .title{font-family:var(--cond);font-weight:700;font-size:1.3rem;margin-top:2px}
+  .row.break .title{font-weight:400;font-size:1.05rem;color:var(--ink-soft)}
+  .split{display:grid;gap:12px;margin-top:12px}
+  @media(min-width:640px){.split{grid-template-columns:1fr 1fr}}
+  .track{background:var(--cream);border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
+  .tag{display:inline-block;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;padding:4px 10px;border-radius:6px;margin-bottom:8px}
+  .tag.online{background:var(--accent);color:#fff}
+  .tag.inperson{background:var(--ink);color:#fff}
+  .track .t{font-family:var(--cond);font-weight:700;font-size:1.12rem;line-height:1.15}
+
+  /* join band */
+  .join{background:linear-gradient(135deg,#2a1410,#5a241c 55%,#c4201c);color:#fff;text-align:center}
+  .join h2{font-size:clamp(2rem,6vw,3rem);text-transform:uppercase}
+  .join p{color:#ffe0d3;font-size:1.1rem;max-width:620px;margin:12px auto 6px}
+  .join .zoom-card{display:inline-flex;flex-wrap:wrap;gap:8px 30px;justify-content:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:18px 26px;margin:22px 0 28px;font-family:var(--cond);letter-spacing:.05em;font-size:1.1rem}
+  .join .zoom-card .lab{color:#ffcdbd;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;display:block}
+
+  /* footer */
+  footer{background:#2a1410;color:#e9d3c7;padding:40px 0;text-align:center;font-size:.92rem}
+  footer .flag{width:1.1em;vertical-align:-.15em}
+  footer a{color:#ffb9a3}
+
+  .fade{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">ASIA ENGLISH <b>TAO</b> SEMINAR</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#schedule">Schedule</a>
+      <a class="btn" id="nav-join" href="#" target="_blank" rel="noopener">Join</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <div class="badge" id="hero-badge">Session 18</div>
+    <div class="kicker">Global Online Course</div>
+    <h1>Asia English<br>Tao Seminar</h1>
+    <div class="tagline" id="hero-tag">The Health of Body, Mind &amp; Soul</div>
+    <div class="hero-meta" id="hero-meta"></div>
+    <div class="hero-cta">
+      <a class="btn" id="hero-join" href="#" target="_blank" rel="noopener">▶ Join via Zoom</a>
+      <div class="zoom-inline" id="hero-zoom"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div class="kicker">Welcome</div>
+      <h2>A Quiet Space for a Busy World</h2>
+    </div>
+    <p class="lead fade">The Asia English Tao Seminar is a free online gathering where friends from around the world come together — in English — to nourish the body, calm the mind, and awaken the spirit.</p>
+    <p class="fade">Life moves fast, and it is easy to lose our center. Each session offers a moment to pause: to listen to timeless wisdom, to reflect on who we truly are, and to walk away with a little more peace and direction. Whether you have practiced for years or are simply curious, there is a seat here for you. No experience is needed — only an open heart.</p>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section id="highlights">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div class="kicker">In This Session</div>
+      <h2>What We Will Explore</h2>
+      <p>Three heartfelt sessions, guided in English, open to everyone.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule" id="schedule">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div class="kicker">Program</div>
+      <h2>Schedule</h2>
+      <p id="sched-sub"></p>
+    </div>
+    <div class="timeline fade" id="timeline"></div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="wrap">
+    <div class="kicker" style="color:#ffcdbd">Join Online</div>
+    <h2>See You There</h2>
+    <p>Everyone is welcome — bring an open heart. The session is held live on Zoom.</p>
+    <div class="zoom-card" id="join-card"></div>
+    <div><a class="btn" id="join-btn" href="#" target="_blank" rel="noopener">▶ Join via Zoom</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Asia English Tao Seminar · Held live from Taiwan <img class="flag" src="assets/flag_tw.png" alt="Taiwan" /></p>
+    <p style="color:#b79082;font-size:.85rem">A global online course on the health of body, mind &amp; soul.</p>
+  </div>
+</footer>
+
+<script>
+  // ============ EDIT HERE EACH SESSION ============
+  const SESSION = {
+    number: 18,
+    theme: "The Health of Body, Mind & Soul",
+    dateLong: "Saturday, September 19, 2026",
+    dateShort: "Sep 19 (Sat)",
+    time: "14:30 – 16:30",
+    tz: "Taiwan Time (GMT+8)",
+    zoom: { id: "817 7186 2158", pass: "123456", link: "https://zoom.us/j/81771862158" },
+    highlights: [
+      { title: "Spirit Writing from Buddhas", desc: "Receive messages of wisdom and compassion, and learn the meaning behind this sacred practice." },
+      { title: "When Facing Challenges, How Can We Stay Calm and Find Direction?", desc: "Practical, heart-centered ways to steady the mind and find your way when life feels uncertain." },
+      { title: "Beyond What We Can See — Who Am I Beyond My Body?", desc: "A reflection on our true nature, and the part of us that no challenge can shake." }
+    ],
+    schedule: [
+      { time:"14:30 – 14:40", title:"Introduction" },
+      { time:"14:40 – 14:45", title:"The Introduction of Spirit Writing from Buddhas" },
+      { time:"14:45 – 15:05", title:"Spirit Writing from Buddhas" },
+      { time:"15:05 – 15:10", title:"Break", break:true },
+      { time:"15:10 – 15:55", title:"Main Teaching",
+        split:[
+          { tag:"online", label:"Online", t:"When Facing Challenges, How Can We Stay Calm and Find Direction?" },
+          { tag:"inperson", label:"In-Person", t:"Beyond What We Can See — Who Am I Beyond My Body?" }
+        ] },
+      { time:"15:55 – 16:00", title:"Break", break:true },
+      { time:"16:00 – 16:30", title:"The Interpretation of Spirit Writing from Buddhas" }
+    ]
+  };
+  // ================================================
+
+  const flag = ' <img class="flag" src="assets/flag_tw.png" alt="Taiwan flag" />';
+  document.getElementById('hero-badge').textContent = 'Session ' + SESSION.number;
+  document.getElementById('hero-tag').innerHTML = SESSION.theme;
+  document.getElementById('hero-meta').innerHTML =
+    '<span>🗓 ' + SESSION.dateLong + '</span>' +
+    '<span>🕝 ' + SESSION.time + '</span>' +
+    '<span>' + SESSION.tz + flag + '</span>';
+  document.getElementById('hero-zoom').innerHTML =
+    'Zoom ID <b>' + SESSION.zoom.id + '</b> · Passcode <b>' + SESSION.zoom.pass + '</b>';
+  [ 'hero-join','join-btn','nav-join' ].forEach(id => document.getElementById(id).href = SESSION.zoom.link);
+
+  document.getElementById('cards').innerHTML = SESSION.highlights.map((h,i) =>
+    '<div class="card fade"><div class="num">'+String(i+1).padStart(2,'0')+'</div>'+
+    '<h3>'+h.title+'</h3><p>'+h.desc+'</p></div>').join('');
+
+  document.getElementById('sched-sub').innerHTML = SESSION.dateShort + ' · ' + SESSION.time + ' · ' + SESSION.tz + flag;
+
+  document.getElementById('timeline').innerHTML = SESSION.schedule.map(r => {
+    if (r.split) {
+      return '<div class="row"><div class="time">'+r.time+'</div>'+
+        '<div class="split">'+ r.split.map(s =>
+          '<div class="track"><span class="tag '+s.tag+'">'+s.label+'</span><div class="t">'+s.t+'</div></div>').join('') +
+        '</div></div>';
+    }
+    return '<div class="row'+(r.break?' break':'')+'"><div class="time">'+r.time+'</div><div class="title">'+r.title+'</div></div>';
+  }).join('');
+
+  document.getElementById('join-card').innerHTML =
+    '<div><span class="lab">Meeting ID</span>'+SESSION.zoom.id+'</div>'+
+    '<div><span class="lab">Passcode</span>'+SESSION.zoom.pass+'</div>';
+
+  // reveal on scroll
+  const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+  document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
