@@ -79,6 +79,7 @@
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center}
   .zoom-inline{font-family:var(--cond);letter-spacing:.05em;font-size:.92rem;color:#ffe9dc;text-shadow:0 1px 8px rgba(0,0,0,.4)}
   .zoom-inline b{color:#fff}
+  .join-hint{font-family:var(--cond);letter-spacing:.05em;font-size:.86rem;color:#ffd9c2;margin-top:12px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
 
   /* ---------- sections ---------- */
   section{padding:78px 0}
@@ -186,6 +187,7 @@
       <a class="btn" id="hero-join" href="#" target="_blank" rel="noopener">▶ Join via Zoom</a>
       <div class="zoom-inline" id="hero-zoom"></div>
     </div>
+    <div class="join-hint"></div>
   </div>
 </section>
 
@@ -234,6 +236,7 @@
     <div class="zoom-brand"><img class="zoom-app" src="assets/zoom-icon.png" alt="Zoom" /></div>
     <div class="zoom-card" id="join-card"></div>
     <div><a class="btn" id="join-btn" href="#" target="_blank" rel="noopener">▶ Join via Zoom</a></div>
+    <div class="join-hint"></div>
   </div>
 </section>
 
@@ -325,6 +328,7 @@
     }
     overlay.classList.add('open');
   }
+  document.querySelectorAll('.join-hint').forEach(el => el.innerHTML = '🕑 Doors open ' + SESSION.openLabel);
   function hideGate(){ overlay.classList.remove('open'); }
   joinBtns.forEach(b => { if(!b) return; b.addEventListener('click', e => { if(!joinOpen()){ e.preventDefault(); showGate(); } }); });
   overlay.addEventListener('click', e => { if(e.target === overlay) hideGate(); });
