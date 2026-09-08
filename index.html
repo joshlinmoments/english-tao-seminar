@@ -62,8 +62,11 @@
   .hero h1{font-size:clamp(2.6rem,9vw,5.6rem);text-transform:uppercase;letter-spacing:-.01em;margin:.15em 0 .1em;text-shadow:0 2px 24px rgba(30,8,8,.4)}
   .badge{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.82rem;padding:7px 14px;border-radius:8px;margin-bottom:14px}
   .tagline{font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(1.1rem,3.4vw,1.7rem);color:#fff;margin:.2em 0 .7em;text-shadow:0 2px 16px rgba(30,8,8,.45)}
-  .hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--cond);letter-spacing:.04em;font-size:1.02rem;margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.35)}
-  .hero-meta .flag{width:1.15em;height:1.15em;vertical-align:-.18em;margin-left:.15em}
+  .hero-date{display:inline-flex;align-items:baseline;gap:14px;border-left:5px solid var(--accent);padding-left:16px;margin:.1em 0 .5em}
+  .hero-date .d-day{font-family:var(--cond);font-weight:700;text-transform:uppercase;font-size:clamp(2.4rem,8vw,3.7rem);line-height:1;letter-spacing:.01em;text-shadow:0 2px 18px rgba(30,8,8,.5)}
+  .hero-date .d-meta{font-family:var(--cond);text-transform:uppercase;letter-spacing:.16em;font-size:clamp(.9rem,2.6vw,1.08rem);color:#ffd9c2;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+  .hero-sub{font-family:var(--cond);letter-spacing:.05em;font-size:1.04rem;color:#fff;margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .hero-sub .flag{width:1.15em;height:auto;vertical-align:-.18em;margin-left:.15em}
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center}
   .zoom-inline{font-family:var(--cond);letter-spacing:.05em;font-size:.92rem;color:#ffe9dc;text-shadow:0 1px 8px rgba(0,0,0,.4)}
   .zoom-inline b{color:#fff}
@@ -169,7 +172,8 @@
     <div class="kicker">Global Online Course</div>
     <h1>Asia English<br>Tao Seminar</h1>
     <div class="tagline" id="hero-tag">The Health of Body, Mind &amp; Soul</div>
-    <div class="hero-meta" id="hero-meta"></div>
+    <div class="hero-date"><span class="d-day" id="hero-day"></span><span class="d-meta" id="hero-dmeta"></span></div>
+    <div class="hero-sub" id="hero-sub"></div>
     <div class="hero-cta">
       <a class="btn" id="hero-join" href="#" target="_blank" rel="noopener">▶ Join via Zoom</a>
       <div class="zoom-inline" id="hero-zoom"></div>
@@ -239,6 +243,8 @@
     theme: "The Health of Body, Mind & Soul",
     dateLong: "Saturday, September 19, 2026",
     dateShort: "Sep 19 (Sat)",
+    dateBig: "Sep 19",
+    dateMeta: "Saturday · 2026",
     time: "14:30 – 16:30",
     tz: "Taiwan Time (GMT+8)",
     zoom: { id: "817 7186 2158", pass: "123456", link: "https://zoom.us/j/81771862158" },
@@ -266,10 +272,9 @@
   const flag = ' <img class="flag" src="assets/flag_tw.png" alt="Taiwan flag" />';
   document.getElementById('hero-badge').textContent = 'Session ' + SESSION.number;
   document.getElementById('hero-tag').innerHTML = SESSION.theme;
-  document.getElementById('hero-meta').innerHTML =
-    '<span>🗓 ' + SESSION.dateLong + '</span>' +
-    '<span>🕝 ' + SESSION.time + '</span>' +
-    '<span>' + SESSION.tz + flag + '</span>';
+  document.getElementById('hero-day').textContent = SESSION.dateBig;
+  document.getElementById('hero-dmeta').textContent = SESSION.dateMeta;
+  document.getElementById('hero-sub').innerHTML = '🕝 ' + SESSION.time + ' &nbsp;·&nbsp; ' + SESSION.tz + flag;
   document.getElementById('hero-zoom').innerHTML =
     'Zoom ID <b>' + SESSION.zoom.id + '</b> · Passcode <b>' + SESSION.zoom.pass + '</b>';
   [ 'hero-join','join-btn','nav-join' ].forEach(id => document.getElementById(id).href = SESSION.zoom.link);
