@@ -52,6 +52,18 @@
   .btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--accent-deep),0 6px 14px rgba(196,32,28,.35)}
   .btn.ghost{background:rgba(255,255,255,.14);color:#fff;box-shadow:none;border:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(4px)}
   .btn.ghost:hover{background:rgba(255,255,255,.24);transform:translateY(-2px)}
+  .btn.disabled{opacity:.5;cursor:not-allowed;box-shadow:0 3px 0 var(--accent-deep),0 6px 14px rgba(196,32,28,.2)}
+  .btn.disabled:hover,.btn.disabled:active{transform:none;box-shadow:0 3px 0 var(--accent-deep),0 6px 14px rgba(196,32,28,.2)}
+
+  /* ---------- modal ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(30,8,8,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:22px;z-index:100}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--panel);border-radius:20px;max-width:430px;width:100%;padding:34px 28px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.45);border-top:5px solid var(--accent);animation:pop .25s ease}
+  @keyframes pop{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+  .modal .m-ico{font-size:2.6rem;line-height:1}
+  .modal h3{font-family:var(--cond);font-size:1.55rem;text-transform:none;letter-spacing:0;margin:.35em 0 .45em;color:var(--ink)}
+  .modal p{color:var(--ink-soft);font-size:1.02rem;line-height:1.55;margin:0 0 22px}
+  .modal .btn{width:100%;justify-content:center}
 
   /* ---------- hero ---------- */
   .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden}
@@ -232,6 +244,15 @@
   </div>
 </footer>
 
+<div class="modal-overlay" id="gate-modal" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="modal">
+    <div class="m-ico" id="gate-ico">🌸</div>
+    <h3 id="gate-title"></h3>
+    <p id="gate-body"></p>
+    <button class="btn" id="gate-close">Got it</button>
+  </div>
+</div>
+
 <script>
   // ============ EDIT HERE EACH SESSION ============
   const SESSION = {
@@ -243,6 +264,10 @@
     time: "14:30 – 16:30",
     tz: "Taiwan Time (GMT+8)",
     zoom: { id: "817 7186 2158", pass: "123456", link: "https://zoom.us/j/81771862158" },
+    // Join button is active only within this window (course day, Taiwan time):
+    openFrom:  "2026-09-19T13:00:00+08:00",
+    openUntil: "2026-09-19T17:30:00+08:00",
+    openLabel: "1:00 PM – 5:30 PM (Taiwan Time, GMT+8)",
     highlights: [
       { title: "Spirit Writing from Buddhas", desc: "Receive messages of wisdom and compassion, and learn the meaning behind this sacred practice." },
       { title: "When Facing Challenges, How Can We Stay Calm and Find Direction?", desc: "Practical, heart-centered ways to steady the mind and find your way when life feels uncertain." },
@@ -274,7 +299,39 @@
     '<span>' + SESSION.tz + flag + '</span>';
   document.getElementById('hero-zoom').innerHTML =
     'Zoom ID <b>' + SESSION.zoom.id + '</b> · Passcode <b>' + SESSION.zoom.pass + '</b>';
-  [ 'hero-join','join-btn','nav-join' ].forEach(id => document.getElementById(id).href = SESSION.zoom.link);
+  // ---- Join via Zoom: active only during the course-day window (Taiwan time) ----
+  const joinBtns = ['hero-join','join-btn','nav-join'].map(id => document.getElementById(id));
+  const overlay = document.getElementById('gate-modal');
+  const mIco = document.getElementById('gate-ico'), mTitle = document.getElementById('gate-title'), mBody = document.getElementById('gate-body');
+  const fromMs = new Date(SESSION.openFrom).getTime(), untilMs = new Date(SESSION.openUntil).getTime();
+  function joinOpen(){ const n = Date.now(); return n >= fromMs && n <= untilMs; }
+  function refreshJoin(){
+    const open = joinOpen();
+    joinBtns.forEach(b => { if(!b) return;
+      b.classList.toggle('disabled', !open);
+      b.setAttribute('aria-disabled', open ? 'false' : 'true');
+      if (open) b.setAttribute('href', SESSION.zoom.link); else b.removeAttribute('href');
+    });
+  }
+  function showGate(){
+    if (Date.now() > untilMs){
+      mIco.textContent = '🙏';
+      mTitle.textContent = 'This session has ended';
+      mBody.innerHTML = 'Thank you for your interest — this seminar has already taken place. Please look out for our next session. Blessings to you. 🌏';
+    } else {
+      mIco.textContent = '🌸';
+      mTitle.textContent = 'The Zoom room isn’t open yet';
+      mBody.innerHTML = 'Our doors open on <b>' + SESSION.dateLong + '</b>, ' + SESSION.openLabel + '.<br>Please come back a little before the session — we look forward to welcoming you. 🌏';
+    }
+    overlay.classList.add('open');
+  }
+  function hideGate(){ overlay.classList.remove('open'); }
+  joinBtns.forEach(b => { if(!b) return; b.addEventListener('click', e => { if(!joinOpen()){ e.preventDefault(); showGate(); } }); });
+  overlay.addEventListener('click', e => { if(e.target === overlay) hideGate(); });
+  document.getElementById('gate-close').addEventListener('click', hideGate);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') hideGate(); });
+  refreshJoin();
+  setInterval(refreshJoin, 30000);
 
   document.getElementById('cards').innerHTML = SESSION.highlights.map((h,i) =>
     '<div class="card fade"><div class="num">'+String(i+1).padStart(2,'0')+'</div>'+
