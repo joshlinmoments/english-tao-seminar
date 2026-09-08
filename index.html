@@ -121,6 +121,17 @@
   .tag.inperson{background:var(--ink);color:#fff}
   .track .t{font-family:var(--cond);font-weight:700;font-size:1.12rem;line-height:1.15}
 
+  /* gallery */
+  .gallery-sec{background:linear-gradient(180deg,#fff,var(--bg))}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+  .gallery figure{margin:0;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);cursor:zoom-in;position:relative;background:#1a0d08}
+  .gallery img{width:100%;height:260px;object-fit:cover;display:block;transition:transform .55s ease}
+  .gallery figure:hover img{transform:scale(1.06)}
+  .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 12px;color:#fff;font-family:var(--cond);letter-spacing:.04em;font-size:.94rem;background:linear-gradient(to top,rgba(20,6,6,.78),transparent)}
+  .lightbox{position:fixed;inset:0;background:rgba(15,5,5,.9);display:none;align-items:center;justify-content:center;padding:20px;z-index:110;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+
   /* join band */
   .join{background:linear-gradient(135deg,#2a1410,#5a241c 55%,#c4201c);color:#fff;text-align:center}
   .join h2{font-size:clamp(2rem,6vw,3rem);text-transform:uppercase}
@@ -168,6 +179,7 @@
       <a href="#about">About</a>
       <a href="#highlights">Highlights</a>
       <a href="#schedule">Schedule</a>
+      <a href="#gallery">Gallery</a>
       <a class="btn" id="nav-join" href="#" target="_blank" rel="noopener">Join</a>
     </nav>
   </div>
@@ -227,6 +239,18 @@
   </div>
 </section>
 
+<!-- GALLERY -->
+<section class="gallery-sec" id="gallery">
+  <div class="wrap">
+    <div class="sec-head fade">
+      <div class="kicker">Moments</div>
+      <h2>From the Gathering</h2>
+      <p>Scenes from our in-person seminar in Taiwan, joined live by friends around the world.</p>
+    </div>
+    <div class="gallery fade" id="gallery-grid"></div>
+  </div>
+</section>
+
 <!-- JOIN -->
 <section class="join" id="join">
   <div class="wrap">
@@ -246,6 +270,8 @@
     <p style="color:#b79082;font-size:.85rem">A global online course on the health of body, mind &amp; soul.</p>
   </div>
 </footer>
+
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt="" /></div>
 
 <div class="modal-overlay" id="gate-modal" role="dialog" aria-modal="true" aria-labelledby="gate-title">
   <div class="modal">
@@ -275,6 +301,11 @@
       { title: "Spirit Writing from Buddhas", desc: "Receive messages of wisdom and compassion, and learn the meaning behind this sacred practice." },
       { title: "When Facing Challenges, How Can We Stay Calm and Find Direction?", desc: "Practical, heart-centered ways to steady the mind and find your way when life feels uncertain." },
       { title: "Beyond What We Can See — Who Am I Beyond My Body?", desc: "A reflection on our true nature, and the part of us that no challenge can shake." }
+    ],
+    gallery: [
+      { src:"assets/gallery/g-speaker.jpg",  cap:"Opening — Spirit Writing from Buddhas" },
+      { src:"assets/gallery/g-group.jpg",     cap:"Together, in person and online" },
+      { src:"assets/gallery/g-audience.jpg",  cap:"Listening across languages" }
     ],
     schedule: [
       { time:"14:30 – 14:40", title:"Introduction" },
@@ -340,6 +371,15 @@
   document.getElementById('cards').innerHTML = SESSION.highlights.map((h,i) =>
     '<div class="card fade"><div class="num">'+String(i+1).padStart(2,'0')+'</div>'+
     '<h3>'+h.title+'</h3><p>'+h.desc+'</p></div>').join('');
+
+  document.getElementById('gallery-grid').innerHTML = (SESSION.gallery||[]).map(g =>
+    '<figure data-src="'+g.src+'"><img src="'+g.src+'" alt="'+g.cap+'" loading="lazy"><figcaption>'+g.cap+'</figcaption></figure>').join('');
+  const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lightbox-img');
+  document.querySelectorAll('.gallery figure').forEach(fig => fig.addEventListener('click', () => {
+    lbImg.src = fig.getAttribute('data-src'); lb.classList.add('open');
+  }));
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.addEventListener('keydown', e => { if(e.key==='Escape') lb.classList.remove('open'); });
 
   document.getElementById('sched-sub').innerHTML = SESSION.dateShort + ' · ' + SESSION.time + ' · ' + SESSION.tz + flag;
 
