@@ -239,6 +239,7 @@
     theme: "The Health of Body, Mind & Soul",
     dateLong: "Saturday, September 19, 2026",
     dateShort: "Sep 19 (Sat)",
+    dateBadge: "Sep 19, 2026 (Sat)",
     time: "14:30 – 16:30",
     tz: "Taiwan Time (GMT+8)",
     zoom: { id: "817 7186 2158", pass: "123456", link: "https://zoom.us/j/81771862158" },
@@ -264,7 +265,7 @@
   // ================================================
 
   const flag = ' <img class="flag" src="assets/flag_tw.png" alt="Taiwan flag" />';
-  document.getElementById('hero-badge').textContent = SESSION.dateShort;
+  document.getElementById('hero-badge').textContent = SESSION.dateBadge;
   document.getElementById('hero-kicker').textContent = 'Global Online Course · Session ' + SESSION.number;
   document.getElementById('hero-tag').innerHTML = SESSION.theme;
   document.getElementById('hero-meta').innerHTML =
