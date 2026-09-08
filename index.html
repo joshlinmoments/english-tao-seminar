@@ -96,6 +96,10 @@
   .row.break .time{color:var(--muted)}
   .row .title{font-family:var(--cond);font-weight:700;font-size:1.3rem;margin-top:2px}
   .row.break .title{font-weight:400;font-size:1.05rem;color:var(--ink-soft)}
+  .row.feature::before{width:18px;height:18px;left:-11px;top:8px;background:var(--accent);box-shadow:0 0 0 4px var(--bg),0 0 0 7px rgba(196,32,28,.28)}
+  .feature-box{margin-top:8px;background:linear-gradient(135deg,#fff,var(--cream));border:2px solid var(--accent);border-radius:14px;padding:14px 20px;box-shadow:0 10px 26px rgba(196,32,28,.16);display:inline-block}
+  .feature-tag{display:block;font-family:var(--cond);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;color:var(--accent);margin-bottom:4px}
+  .feature-box .title{margin-top:0}
   .split{display:grid;gap:12px;margin-top:12px}
   @media(min-width:640px){.split{grid-template-columns:1fr 1fr}}
   .track{background:var(--cream);border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
@@ -246,7 +250,7 @@
     schedule: [
       { time:"14:30 – 14:40", title:"Introduction" },
       { time:"14:40 – 14:45", title:"The Introduction of Spirit Writing from Buddhas" },
-      { time:"14:45 – 15:05", title:"Spirit Writing from Buddhas" },
+      { time:"14:45 – 15:05", title:"Spirit Writing from Buddhas", feature:true },
       { time:"15:05 – 15:10", title:"Break", break:true },
       { time:"15:10 – 15:55", title:"Main Teaching",
         split:[
@@ -282,6 +286,11 @@
         '<div class="split">'+ r.split.map(s =>
           '<div class="track"><span class="tag '+s.tag+'">'+s.label+'</span><div class="t">'+s.t+'</div></div>').join('') +
         '</div></div>';
+    }
+    if (r.feature) {
+      return '<div class="row feature"><div class="time">'+r.time+'</div>'+
+        '<div class="feature-box"><span class="feature-tag">✦ The Heart of the Seminar</span>'+
+        '<div class="title">'+r.title+'</div></div></div>';
     }
     return '<div class="row'+(r.break?' break':'')+'"><div class="time">'+r.time+'</div><div class="title">'+r.title+'</div></div>';
   }).join('');
